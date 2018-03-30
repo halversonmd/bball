@@ -6,7 +6,7 @@ from datetime import datetime as dt, date, time as dttime
 import csv, codecs
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
-from flask.ext.triangle import Triangle
+from flask_triangle import Triangle
 import datetime as dt
 
 Triangle(ap)
