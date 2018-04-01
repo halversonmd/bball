@@ -3,7 +3,7 @@ from flask import *
 import requests, json, pandas as pd, numpy as np
 from pandas.io.json import json_normalize
 from datetime import datetime as dt, date, time as dttime
-import csv, codecs
+import csv, codecs, os
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from flask_triangle import Triangle
@@ -24,8 +24,10 @@ def index():
 @ap.route('/api/woba_data', methods=['GET', 'POST'])
 def api_woba_data():
 
-    csv_df = pd.read_csv('~/baseball/data_files/matchup_data_{}.csv'.format(today_str))
-    
+    file_path = '~/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    if not os.path.exists(file_path):
+        return "data_not_updated"
+    csv_df = pd.read_csv(file_path)
     resp_json = []
     for i in csv_df.index:
         resp_json.append({'batter': csv_df.loc[i, 'batter'],
@@ -40,8 +42,10 @@ def api_woba_data():
 @ap.route('/api/fant_data', methods=['GET', 'POST'])
 def api_fant_data():
 
-    csv_df = pd.read_csv('~/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str))
-    
+    file_path = '~/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    if not os.path.exists(file_path):
+        return "data_not_updated"
+    csv_df = pd.read_csv(file_path)
     resp_json = []
     for i in csv_df.index:
         resp_json.append({'batter': csv_df.loc[i, 'batter'],
