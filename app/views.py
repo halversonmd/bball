@@ -71,10 +71,10 @@ def last_update():
 
 
     
-    with open('data_files/last_updated_prob.txt', 'r') as f:
+    with open('/home/ec2-user/baseball/data_files/last_updated_prob.txt', 'r') as f:
         last_update_prob = f.read()
 
-    with open('data_files/last_updated_woba.txt', 'r') as f:
+    with open('/home/ec2-user/baseball/data_files/last_updated_woba.txt', 'r') as f:
         last_update_woba = f.read()
     
 
