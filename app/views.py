@@ -24,7 +24,7 @@ def index():
 @ap.route('/api/woba_data', methods=['GET', 'POST'])
 def api_woba_data():
 
-    file_path = '~/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
     print file_path
     if not os.path.exists(file_path):
         return "data_not_updated"
@@ -43,7 +43,7 @@ def api_woba_data():
 @ap.route('/api/fant_data', methods=['GET', 'POST'])
 def api_fant_data():
 
-    file_path = '~/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
     print file_path
     if not os.path.exists(file_path):
         return "data_not_updated"
