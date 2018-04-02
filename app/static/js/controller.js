@@ -39,6 +39,10 @@
          });
 
       };
+      $scope.debug = function() {
+         console.log($scope.sortType)
+
+      };
       
       // On load
       $scope.object = {fant_missing_data: null, woba_fant_data: null};

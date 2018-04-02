@@ -181,7 +181,7 @@
                     </a>
                   </td>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'pitcher_salary'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortType = 'pitcher_salary'; sortReverse = !sortReverse; debug()">
                       Pitcher Salary 
                       <span ng-show="sortType == 'pitcher_salary' && !sortReverse" class="fa fa-caret-down"></span>
                       <span ng-show="sortType == 'pitcher_salary' && sortReverse" class="fa fa-caret-up"></span>
@@ -195,7 +195,7 @@
                     </a>
                   </td>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'total_woba'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortType = 'total_woba'; sortReverse = !sortReverse; debug()">
                       Combined Woba 
                       <span ng-show="sortType == 'total_woba' && !sortReverse" class="fa fa-caret-down"></span>
                       <span ng-show="sortType == 'total_woba' && sortReverse" class="fa fa-caret-up"></span>
