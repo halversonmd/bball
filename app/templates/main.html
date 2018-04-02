@@ -38,7 +38,7 @@
           <!-- <h3> {{ "{{object.fant_missing_data}}" }}</h3> -->
           <div class="col-md-3">
             <h2>Probability Data</h2>
-            <div class="col-lg-6">{{ "{{last_update_woba}}" }}</div>
+            <div class="col-lg-6">Last update: {{ "{{last_update_prob}}" }}</div>
             
             <form>
               <div class="form-group">
@@ -96,9 +96,9 @@
       <div role="tabpanel" class="tab-pane fade" id="fant_data">
         <div class="row container-fluid">
           <!-- Start Document Results Tree -->
-          <h3> {{ "{{object.woba_missing_data}}" }}</h3>
-          <div class="col-md-3" ng_hide=object.woba_missing_data>
+          <div class="col-md-3">
             <h3>Woba Data</h3>
+            <div class="col-lg-6">Last update: {{ "{{last_update_woba}}" }}</div>
             <form>
               <div class="form-group">
                 <div class="input-group">
