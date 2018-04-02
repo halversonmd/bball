@@ -118,6 +118,20 @@
                     </a>
                   </td>
                   <td class="fit">
+                    <a href="#" ng-click="sortType = 'game_time'; sortReverse = !sortReverse">
+                      Game Time 
+                      <span ng-show="sortType == 'game_time' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'game_time' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
+                    <a href="#" ng-click="sortType = 'lineup_confirmed'; sortReverse = !sortReverse">
+                      Lineup Confirmed 
+                      <span ng-show="sortType == 'lineup_confirmed' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'lineup_confirmed' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
                     <a href="#" ng-click="sortType = 'b_tot_woba'; sortReverse = !sortReverse">
                       Batter Woba 
                       <span ng-show="sortType == 'b_tot_woba' && !sortReverse" class="fa fa-caret-down"></span>
@@ -206,6 +220,8 @@
               <tbody>  
                 <tr ng-repeat="row in woba_fant_data | orderBy:sortType:sortReverse | filter:search_fant_table">
                   <td class="fit">{{ "{{row.batter}}" }}</td>
+                  <td class="fit">{{ "{{row.date_time}}" }}</td>
+                  <td class="fit">{{ "{{row.lineup_confirmed}}" }}</td>
                   <td class="fit">{{ "{{row.b_tot_woba | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.b_hand}}" }}</td>
                   <td class="fit">{{ "{{row.batter_venue}}" }}</td>
