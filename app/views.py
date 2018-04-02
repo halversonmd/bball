@@ -54,6 +54,8 @@ def api_fant_data():
             'b_tot_woba': csv_df.loc[i, 'b_tot_woba'],
             'b_hand': csv_df.loc[i, 'batter_handedness'],
             'batter_salary': csv_df.loc[i, 'batter_salary'],
+            'batter_venue': csv_df.loc[i, 'batter_venue'],
+            'batter_venue_woba': csv_df.loc[i, 'batter_venue_woba'],
             'bwaph': csv_df.loc[i, 'bwaph'],
             'p_tot_woba': csv_df.loc[i, 'p_tot_woba'],
             'pitcher': csv_df.loc[i, 'pitcher'],

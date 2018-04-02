@@ -132,6 +132,20 @@
                     </a>
                   </td>
                   <td class="fit">
+                    <a href="#" ng-click="sortType = 'batter_venue'; sortReverse = !sortReverse">
+                      Batter Venue 
+                      <span ng-show="sortType == 'batter_venue' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter_venue' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
+                    <a href="#" ng-click="sortType = 'batter_venue_woba'; sortReverse = !sortReverse">
+                      Batter Venue Woba 
+                      <span ng-show="sortType == 'batter_venue_woba' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter_venue_woba' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
                     <a href="#" ng-click="sortType = 'batter_salary'; sortReverse = !sortReverse">
                       Batter Salary 
                       <span ng-show="sortType == 'batter_salary' && !sortReverse" class="fa fa-caret-down"></span>
@@ -194,6 +208,8 @@
                   <td class="fit">{{ "{{row.batter}}" }}</td>
                   <td class="fit">{{ "{{row.b_tot_woba | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.b_hand}}" }}</td>
+                  <td class="fit">{{ "{{row.batter_venue}}" }}</td>
+                  <td class="fit">{{ "{{row.batter_venue_woba | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.batter_salary | number:0 }}" }}</td>
                   <td class="fit">{{ "{{row.bwaph | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.p_tot_woba | number:2 }}" }}</td>
