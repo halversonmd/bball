@@ -52,37 +52,37 @@
               <thead>
                 <tr>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'batter'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortProbType = 'batter'; sortReverse = !sortReverse">
                       Batter 
-                      <span ng-show="sortType == 'batter' && !sortReverse" class="fa fa-caret-down"></span>
-                      <span ng-show="sortType == 'batter' && sortReverse" class="fa fa-caret-up"></span>
+                      <span ng-show="sortProbType == 'batter' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'batter' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                   </td>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'against'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortProbType = 'against'; sortReverse = !sortReverse">
                       Against 
-                      <span ng-show="sortType == 'against' && !sortReverse" class="fa fa-caret-down"></span>
-                      <span ng-show="sortType == 'against' && sortReverse" class="fa fa-caret-up"></span>
+                      <span ng-show="sortProbType == 'against' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'against' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                   </td>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'batter_avg_fant'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortProbType = 'batter_avg_fant'; sortReverse = !sortReverse">
                       Avg Fantasy 
-                      <span ng-show="sortType == 'batter_avg_fant' && !sortReverse" class="fa fa-caret-down"></span>
-                      <span ng-show="sortType == 'batter_avg_fant' && sortReverse" class="fa fa-caret-up"></span>
+                      <span ng-show="sortProbType == 'batter_avg_fant' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'batter_avg_fant' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                   </td>
                   <td class="fit">
-                    <a href="#" ng-click="sortType = 'prob_fant_abov_avg'; sortReverse = !sortReverse">
+                    <a href="#" ng-click="sortProbType = 'prob_fant_abov_avg'; sortReverse = !sortReverse">
                       Prob. Fantasy Above Avg 
-                      <span ng-show="sortType == 'prob_fant_abov_avg' && !sortReverse" class="fa fa-caret-down"></span>
-                      <span ng-show="sortType == 'prob_fant_abov_avg' && sortReverse" class="fa fa-caret-up"></span>
+                      <span ng-show="sortProbType == 'prob_fant_abov_avg' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'prob_fant_abov_avg' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                   </td>
                 </tr>
               </thead>
               <tbody>  
-                <tr ng-repeat="row in woba_data | orderBy:sortType:sortReverse | filter:search_table">
+                <tr ng-repeat="row in woba_data | orderBy:sortProbType:sortReverse | filter:search_table">
                   <td class="fit">{{ "{{row.batter}}" }}</td>
                   <td class="fit">{{ "{{row.against}}" }}</td>
                   <td class="fit">{{ "{{ row.batter_avg_fant | number:2 }}" }}</td>
@@ -204,7 +204,7 @@
                 </tr>
               </thead>
               <tbody>  
-                <tr ng-repeat="row in woba_fant_data | orderBy:sortFantType:sortReverse | filter:search_fant_table">
+                <tr ng-repeat="row in woba_fant_data | orderBy:sortType:sortReverse | filter:search_fant_table">
                   <td class="fit">{{ "{{row.batter}}" }}</td>
                   <td class="fit">{{ "{{row.b_tot_woba | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.b_hand}}" }}</td>

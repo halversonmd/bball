@@ -43,7 +43,7 @@
       // On load
       $scope.object = {fant_missing_data: null, woba_fant_data: null};
       $scope.sortType = 'total_woba';
-      $scope.sortFantType = 'total_woba';
+      $scope.sortProbType = 'prob_fant_abov_avg';
       $scope.sortReverse  = true;
       $scope.search_table = '';
       $scope.search_fant_table = '';
