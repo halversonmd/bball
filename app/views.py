@@ -25,8 +25,8 @@ def index():
 def api_woba_data():
 
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
-    print file_path
-    if not os.path.exists(file_path):
+    
+    if not os.path.isfile(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)
     resp_json = []
@@ -44,8 +44,8 @@ def api_woba_data():
 def api_fant_data():
 
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
-    print file_path
-    if not os.path.exists(file_path):
+    
+    if not os.path.isfile(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)
     resp_json = []
@@ -78,7 +78,7 @@ def last_update():
         last_update_woba = f.read()
     
 
-    return json.dumps(resp)
+    return json.dumps({'last_update_prob':last_update_prob, 'last_update_woba':last_update_woba})
 
 
 

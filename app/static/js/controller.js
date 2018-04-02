@@ -31,9 +31,9 @@
       };
 
       $scope.last_updates = function() {
-         $http.get("/api/woba_data", {headers:{'Cache-Control': 'no-cache'}})
+         $http.get("/api/last_update", {headers:{'Cache-Control': 'no-cache'}})
          .then(function(response) {
-          resp = response.data
+          var resp = response.data
           $scope.last_update_prob = resp['last_update_prob']
           $scope.last_update_woba = resp['last_update_woba']
          });
