@@ -52,7 +52,7 @@ def api_fant_data():
     for i in csv_df.index:
         game_time = csv_df.loc[i, 'date_time']
         game_time = dt.datetime.strptime(game_time, '%Y-%m-%d %H:%M:%S') - dt.timedelta(hours=4)
-        game_time = game_time.strftime('%Y-%m-%d %H:%M')
+        game_time = game_time.strftime('%Y-%m-%d %I:%M %p EST')
         resp_json.append({'batter': csv_df.loc[i, 'batter'],
             'b_tot_woba': csv_df.loc[i, 'b_tot_woba'],
             'b_hand': csv_df.loc[i, 'batter_handedness'],
