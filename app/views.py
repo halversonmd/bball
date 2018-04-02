@@ -84,6 +84,12 @@ def last_update():
 
     with open('/home/ec2-user/baseball/data_files/last_updated_woba.txt', 'r') as f:
         last_update_woba = f.read()
+
+    last_update_prob = dt.datetime.strptime(last_update_prob, '%Y-%m-%d %H:%M:%S') - dt.timedelta(hours=4)
+    last_update_prob = last_update_prob.strftime('%Y-%m-%d %I:%M %p EST')
+
+    last_update_woba = dt.datetime.strptime(last_update_woba, '%Y-%m-%d %H:%M:%S') - dt.timedelta(hours=4)
+    last_update_woba = last_update_woba.strftime('%Y-%m-%d %I:%M %p EST')
     
 
     return json.dumps({'last_update_prob':last_update_prob, 'last_update_woba':last_update_woba})
