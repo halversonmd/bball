@@ -25,6 +25,7 @@ def index():
 def api_woba_data():
 
     file_path = '~/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    print file_path
     if not os.path.exists(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)
@@ -43,6 +44,7 @@ def api_woba_data():
 def api_fant_data():
 
     file_path = '~/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    print file_path
     if not os.path.exists(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)
@@ -63,6 +65,21 @@ def api_fant_data():
      
 
     return json.dumps(resp_json)
+
+@ap.route('/api/last_update', methods=['GET', 'POST'])
+def last_update():
+
+
+    
+    with open('data_files/last_updated_prob.txt', 'r') as f:
+        last_update_prob = f.read()
+
+    with open('data_files/last_updated_woba.txt', 'r') as f:
+        last_update_woba = f.read()
+    
+
+    return json.dumps(resp)
+
 
 
 

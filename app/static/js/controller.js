@@ -9,32 +9,46 @@
         .then(function(response) {
 
           if (response.data == 'data_not_updated'){
-            $scope.woba_missing_data = "Data still processing for today";
+            $scope.object.woba_missing_data = "Data still processing for today";
+          }else{
+            $scope.woba_data = response.data;
+            $scope.object.woba_missing_data = null;
+            $scope.last_updates();
           };
-          $scope.woba_data = response.data;
-          $scope.woba_missing_data = null;
 
         })
         $http.get("/api/fant_data", {headers:{'Cache-Control': 'no-cache'}})
         .then(function(response) {
           if (response.data == 'data_not_updated'){
-            $scope.fant_missing_data = "Data still processing for today";
+            $scope.object.fant_missing_data = "Data still processing for today";
+          }else{
+            $scope.woba_fant_data = response.data;
+            $scope.object.fant_missing_data = null;
+            $scope.last_updates();
           };
-          $scope.woba_fant_data = response.data;
-          $scope.fant_missing_data = null;
 
         })
       };
+
+      $scope.last_updates = function() {
+         $http.get("/api/woba_data", {headers:{'Cache-Control': 'no-cache'}})
+         .then(function(response) {
+          resp = response.data
+          $scope.last_update_prob = resp['last_update_prob']
+          $scope.last_update_woba = resp['last_update_woba']
+         });
+
+      };
       
       // On load
-      $scope.woba_fant_data = null;
-      $scope.fant_missing_data = null;
+      $scope.object = {fant_missing_data: null, woba_fant_data: null};
       $scope.sortType = 'total_woba';
       $scope.sortFantType = 'total_woba';
       $scope.sortReverse  = true;
       $scope.search_table = '';
       $scope.search_fant_table = '';
       $scope.load_data();
+      $scope.last_updates();
 
     
     });

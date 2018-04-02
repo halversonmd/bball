@@ -10,7 +10,7 @@
       <div class="col-md-6">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" href="#woba_data_tbl" role="tab" data-toggle="tab">Fantasty</a>
+            <a class="nav-link active" href="#woba_data_tbl" role="tab" data-toggle="tab">Probabilities</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#fant_data" role="tab" data-toggle="tab">Woba</a>
@@ -35,9 +35,11 @@
         <!-- Start Documents Results Row -->
         <div class="row container-fluid">
           <!-- Start Document Results Tree -->
+          <!-- <h3> {{ "{{object.fant_missing_data}}" }}</h3> -->
           <div class="col-md-3">
-            <h2>Fantasty Data</h2>
-            <h3> {{ "{{fant_missing_data}}" }}</h3>
+            <h2>Probability Data</h2>
+            <div class="col-lg-6">{{ "{{last_update_woba}}" }}</div>
+            
             <form>
               <div class="form-group">
                 <div class="input-group">
@@ -94,7 +96,8 @@
       <div role="tabpanel" class="tab-pane fade" id="fant_data">
         <div class="row container-fluid">
           <!-- Start Document Results Tree -->
-          <div class="col-md-3">
+          <h3> {{ "{{object.woba_missing_data}}" }}</h3>
+          <div class="col-md-3" ng_hide=object.woba_missing_data>
             <h3>Woba Data</h3>
             <form>
               <div class="form-group">
