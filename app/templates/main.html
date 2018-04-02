@@ -190,7 +190,7 @@
                 </tr>
               </thead>
               <tbody>  
-                <tr ng-repeat="row in fant_data | orderBy:sortFantType:sortReverse | filter:search_fant_table">
+                <tr ng-repeat="row in woba_fant_data | orderBy:sortFantType:sortReverse | filter:search_fant_table">
                   <td class="fit">{{ "{{row.batter}}" }}</td>
                   <td class="fit">{{ "{{row.b_tot_woba | number:2 }}" }}</td>
                   <td class="fit">{{ "{{row.b_hand}}" }}</td>
