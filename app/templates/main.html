@@ -8,10 +8,13 @@
     <div class="row container-fluid">  
       <br>
       <div class="col-lg-12">
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs " role="tablist">
           <li class="nav-item">
             <a class="nav-link active" href="#fant_data" role="tab" data-toggle="tab">Woba</a>
           </li>
+          <div class="col-lg-3 col-lg-offset-9">
+            <div>Last update: {{ "{{object.last_update_woba}}" }}</div>
+          </div>
         </ul>
       </div>
     </div>
@@ -23,7 +26,6 @@
       <div role="tabpanel" class="tab-pane fade active in" id="fant_data">
         <div class="row container-fluid">
           <div class="col-md-3" style="padding-top: 4%">
-            <div>Last update: {{ "{{object.last_update_woba}}" }}</div>
             <form>
               <div class="form-group">
                 <div class="input-group">
@@ -33,7 +35,7 @@
               </div>
             </form>
           </div>
-          <div class="col-lg-8">
+          <div class="col-md-9">
             <h3>Toggle columns:</h3>
             <div class="btn-group btn-group-sm">
               <button type="button" ng-class="{'btn btn-success': !batter_hide, 'btn btn-danger': batter_hide}" ng-click = "batter_hide = !batter_hide">Batter</button>
