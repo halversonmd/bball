@@ -26,7 +26,11 @@ def api_woba_data():
     today = today - dt.timedelta(hours=4)
     today_str = today.strftime('%Y-%m-%d')
 
+    #server
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+
+    #local
+    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -49,7 +53,11 @@ def api_fant_data():
     today = today - dt.timedelta(hours=4)
     today_str = today.strftime('%Y-%m-%d')
 
+    #server
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+
+    #local
+    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -61,6 +69,8 @@ def api_fant_data():
         game_time = game_time.strftime('%Y-%m-%d %I:%M %p EST')
         resp_json.append({'batter': csv_df.loc[i, 'batter'],
             'b_tot_woba': csv_df.loc[i, 'b_tot_woba'],
+            'batter_pos': csv_df.loc[i, 'batter_pos'],
+            'batter_team': csv_df.loc[i, 'batter_team'],
             'b_hand': csv_df.loc[i, 'batter_handedness'],
             'batter_salary': csv_df.loc[i, 'batter_salary'],
             'batter_venue': csv_df.loc[i, 'batter_venue'],

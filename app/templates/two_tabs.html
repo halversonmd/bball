@@ -1,0 +1,295 @@
+
+{% extends "base.html" %}
+{% block body %}
+
+ <body ng-app='app' ng-controller="ViewController" style="margin:10px">
+    <div class="container-fluid">  
+    <!-- Start Navigation Tabs -->
+    <div class="row container-fluid">  
+      <br>
+      <div class="col-lg-8">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#woba_data_tbl" role="tab" data-toggle="tab">Probabilities</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#fant_data" role="tab" data-toggle="tab">Woba</a>
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6">
+  
+      </div>
+    </div>
+    <!-- End Navigation Tabs -->
+
+    <!-- Start Tab Contents -->
+    <div class="tab-content">
+      <br>
+      <!-- Start Search Tab -->
+      <div role="tabpanel" class="tab-pane fade in active" id="woba_data_tbl">
+        <!-- End Top Search Row -->
+        <!-- Start Documents Results Row -->
+        <div class="row container-fluid">
+          <!-- Start Document Results Tree -->
+          <!-- <h3> {{ "{{object.fant_missing_data}}" }}</h3> -->
+          <div class="col-md-3">
+            <h2>Probability Data</h2>
+            <div>Last update: {{ "{{object.last_update_prob}}" }}</div>
+            
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_table">
+                </div>      
+              </div>
+            </form>
+            <table class="table table-bordered table-striped table-responsive">
+              <thead>
+                <tr>
+                  <td class="fit">
+                    <a href="#" ng-click="sortProbType = 'batter'; sortReverse = !sortReverse">
+                      Batter 
+                      <span ng-show="sortProbType == 'batter' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'batter' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
+                    <a href="#" ng-click="sortProbType = 'against'; sortReverse = !sortReverse">
+                      Against 
+                      <span ng-show="sortProbType == 'against' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'against' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
+                    <a href="#" ng-click="sortProbType = 'batter_avg_fant'; sortReverse = !sortReverse">
+                      Avg Fantasy 
+                      <span ng-show="sortProbType == 'batter_avg_fant' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'batter_avg_fant' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit">
+                    <a href="#" ng-click="sortProbType = 'prob_fant_abov_avg'; sortReverse = !sortReverse">
+                      Prob. Fantasy Above Avg 
+                      <span ng-show="sortProbType == 'prob_fant_abov_avg' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortProbType == 'prob_fant_abov_avg' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>  
+                <tr ng-repeat="row in woba_data | orderBy:sortProbType:sortReverse | filter:search_table">
+                  <td class="fit">{{ "{{row.batter}}" }}</td>
+                  <td class="fit">{{ "{{row.against}}" }}</td>
+                  <td class="fit">{{ "{{ row.batter_avg_fant | number:2 }}" }}</td>
+                  <td class="fit">{{ "{{ row.prob_fant_abov_avg| number:2 }}" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>      
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="fant_data">
+        <div class="row container-fluid">
+          <!-- Start Document Results Tree -->
+          <div class="col-md-3">
+            <h3>Woba Data</h3>
+            <div>Last update: {{ "{{object.last_update_woba}}" }}</div>
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_fant_table">
+                </div>      
+              </div>
+            </form>
+            <table class="table table-condensed table-bordered table-striped">
+              <thead>
+                <tr>
+                  <td class="fit" ng-hide="batter_hide">
+                    <a href="#" ng-click="sortType = 'batter'; sortReverse = !sortReverse">
+                      Batter 
+                      <span ng-show="sortType == 'batter' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="game_time_hide">
+                    <a href="#" ng-click="sortType = 'game_time'; sortReverse = !sortReverse">
+                      Game Time 
+                      <span ng-show="sortType == 'game_time' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'game_time' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="lineup_confirmed_hide">
+                    <a href="#" ng-click="sortType = 'lineup_confirmed'; sortReverse = !sortReverse">
+                      Lineup Confirmed 
+                      <span ng-show="sortType == 'lineup_confirmed' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'lineup_confirmed' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="b_tot_woba_hide">
+                    <a href="#" ng-click="sortType = 'b_tot_woba'; sortReverse = !sortReverse">
+                      Batter Woba 
+                      <span ng-show="sortType == 'b_tot_woba' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'b_tot_woba' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="b_hand_hide">
+                    <a href="#" ng-click="sortType = 'b_hand'; sortReverse = !sortReverse">
+                      Batter Handedness 
+                      <span ng-show="sortType == 'b_hand' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'b_hand' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="batter_venue_hide">
+                    <a href="#" ng-click="sortType = 'batter_venue'; sortReverse = !sortReverse">
+                      Batter Venue 
+                      <span ng-show="sortType == 'batter_venue' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter_venue' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="batter_venue_woba_hide">
+                    <a href="#" ng-click="sortType = 'batter_venue_woba'; sortReverse = !sortReverse">
+                      Batter Venue Woba 
+                      <span ng-show="sortType == 'batter_venue_woba' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter_venue_woba' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="batter_salary_hide">
+                    <a href="#" ng-click="sortType = 'batter_salary'; sortReverse = !sortReverse">
+                      Batter Salary 
+                      <span ng-show="sortType == 'batter_salary' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'batter_salary' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="bwaph_hide">
+                    <a href="#" ng-click="sortType = 'bwaph'; sortReverse = !sortReverse">
+                      Batter Woba Against P Hand 
+                      <span ng-show="sortType == 'bwaph' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'bwaph' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="p_tot_woba_hide">
+                    <a href="#" ng-click="sortType = 'p_tot_woba'; sortReverse = !sortReverse">
+                      Pitcher Woba 
+                      <span ng-show="sortType == 'p_tot_woba' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'p_tot_woba' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="pitcher_hide">
+                    <a href="#" ng-click="sortType = 'pitcher'; sortReverse = !sortReverse">
+                      Pitcher 
+                      <span ng-show="sortType == 'pitcher' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'pitcher' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="p_hand_hide">
+                    <a href="#" ng-click="sortType = 'p_hand'; sortReverse = !sortReverse">
+                      Pitcher Handedness 
+                      <span ng-show="sortType == 'p_hand' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'p_hand' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="pwabh_hide">
+                    <a href="#" ng-click="sortType = 'pwabh'; sortReverse = !sortReverse">
+                      Pitcher Woba Against B Hand 
+                      <span ng-show="sortType == 'pwabh' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'pwabh' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="pitcher_salary_hide">
+                    <a href="#" ng-click="sortType = 'pitcher_salary'; sortReverse = !sortReverse; debug()">
+                      Pitcher Salary 
+                      <span ng-show="sortType == 'pitcher_salary' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'pitcher_salary' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="salary_over_k_hide">
+                    <a href="#" ng-click="sortType = 'salary_over_k'; sortReverse = !sortReverse">
+                      $ / k's 
+                      <span ng-show="sortType == 'salary_over_k' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'salary_over_k' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                  <td class="fit" ng-hide="total_woba_hide">
+                    <a href="#" ng-click="sortType = 'total_woba'; sortReverse = !sortReverse; debug()">
+                      Combined Woba 
+                      <span ng-show="sortType == 'total_woba' && !sortReverse" class="fa fa-caret-down"></span>
+                      <span ng-show="sortType == 'total_woba' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>  
+                <tr ng-repeat="row in woba_fant_data | orderBy:sortType:sortReverse | filter:search_fant_table">
+                  <td class="fit" ng-hide="batter_hide">{{ "{{row.batter}}" }}</td>
+                  <td class="fit" ng-hide="game_time_hide">{{ "{{row.date_time}}" }}</td>
+                  <td class="fit" ng-hide="lineup_confirmed_hide">{{ "{{row.lineup_confirmed}}" }}</td>
+                  <td class="fit" ng-hide="b_tot_woba_hide">{{ "{{row.b_tot_woba | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="b_hand_hide">{{ "{{row.b_hand}}" }}</td>
+                  <td class="fit" ng-hide="batter_venue_hide">{{ "{{row.batter_venue}}" }}</td>
+                  <td class="fit" ng-hide="batter_venue_woba_hide">{{ "{{row.batter_venue_woba | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="batter_salary_hide">{{ "{{row.batter_salary | number:0 }}" }}</td>
+                  <td class="fit" ng-hide="bwaph_hide">{{ "{{row.bwaph | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="p_tot_woba_hide">{{ "{{row.p_tot_woba | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="pitcher_hide">{{ "{{row.pitcher}}" }}</td>
+                  <td class="fit" ng-hide="p_hand_hide">{{ "{{row.p_hand}}" }}</td>
+                  <td class="fit" ng-hide="pwabh_hide">{{ "{{row.pwabh | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="pitcher_salary_hide">{{ "{{row.pitcher_salary | number:0 }}" }}</td>
+                  <td class="fit" ng-hide="salary_over_k_hide">{{ "{{ row.salary_over_k | number:2 }}" }}</td>
+                  <td class="fit" ng-hide="total_woba_hide">{{ "{{ row.total_woba| number:2 }}" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-8">
+            <h3>Toggle columns:</h3>
+            <div class="btn-group btn-group-sm">
+              <button type="button" ng-class="{'btn btn-success': !batter_hide, 'btn btn-danger': batter_hide}" ng-click = "batter_hide = !batter_hide">Batter</button>
+
+              <button type="button" ng-class="{'btn btn-success': !game_time_hide, 'btn btn-danger': game_time_hide}" ng-click = "game_time_hide = !game_time_hide">Game Time</button>
+
+              <button type="button" ng-class="{'btn btn-success': !lineup_confirmed_hide, 'btn btn-danger': lineup_confirmed_hide}" ng-click = "lineup_confirmed_hide = !lineup_confirmed_hide">Lineup Conf.</button>
+
+              <button type="button" ng-class="{'btn btn-success': !b_tot_woba_hide, 'btn btn-danger': b_tot_woba_hide}" ng-click = "b_tot_woba_hide = !b_tot_woba_hide">Batter Woba</button>
+
+              <button type="button" ng-class="{'btn btn-success': !b_hand_hide, 'btn btn-danger': b_hand_hide}" ng-click = "b_hand_hide = !b_hand_hide">Batter Handedness</button>
+
+              <button type="button" ng-class="{'btn btn-success': !batter_venue_hide, 'btn btn-danger': batter_venue_hide}" ng-click = "batter_venue_hide = !batter_venue_hide">Batter Venue</button>
+
+              <button type="button" ng-class="{'btn btn-success': !batter_venue_woba_hide, 'btn btn-danger': batter_venue_woba_hide}" ng-click = "batter_venue_woba_hide = !batter_venue_woba_hide">Better Venue Woba</button>
+
+              <button type="button" ng-class="{'btn btn-success': !batter_salary_hide, 'btn btn-danger': batter_salary_hide}" ng-click = "batter_salary_hide = !batter_salary_hide">Batter Salary</button>
+
+              <button type="button" ng-class="{'btn btn-success': !bwaph_hide, 'btn btn-danger': bwaph_hide}" ng-click = "bwaph_hide = !bwaph_hide">Batter Woba Against P Hand</button><br><br>
+
+              <button type="button" ng-class="{'btn btn-success': !p_tot_woba_hide, 'btn btn-danger': p_tot_woba_hide}" ng-click = "p_tot_woba_hide = !p_tot_woba_hide">Pitcher Woba</button>
+
+              <button type="button" ng-class="{'btn btn-success': !pitcher_hide, 'btn btn-danger': pitcher_hide}" ng-click = "pitcher_hide = !pitcher_hide">Pitcher</button>
+
+              <button type="button" ng-class="{'btn btn-success': !p_hand_hide, 'btn btn-danger': p_hand_hide}" ng-click = "p_hand_hide = !p_hand_hide">Pitcher Handedness</button>
+
+              <button type="button" ng-class="{'btn btn-success': !pwabh_hide, 'btn btn-danger': pwabh_hide}" ng-click = "pwabh_hide = !pwabh_hide">Pitcher Woba Against B Hand</button>
+
+              <button type="button" ng-class="{'btn btn-success': !pitcher_salary_hide, 'btn btn-danger': pitcher_salary_hide}" ng-click = "pitcher_salary_hide = !pitcher_salary_hide">Pitcher Salary</button>
+
+              <button type="button" ng-class="{'btn btn-success': !salary_over_k_hide, 'btn btn-danger': salary_over_k_hide}" ng-click = "salary_over_k_hide = !salary_over_k_hide">$ / k</button>
+
+              <button type="button" ng-class="{'btn btn-success': !total_woba_hide, 'btn btn-danger': total_woba_hide}" ng-click = "total_woba_hide = !total_woba_hide">Combined Woba</button>
+              
+            </div>
+          </div>
+        </div>      
+      </div>
+      </div>
+      </div>      
+      <!-- End Folder Tab  -->
+      
+    </div>
+    <!-- End Tab Contents -->
+  </div>
+  </body>
+
+
+{% endblock %}
