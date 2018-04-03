@@ -11,9 +11,7 @@ import datetime as dt
 
 Triangle(ap)
 
-today = dt.datetime.now()
-today = today - dt.timedelta(hours=4)
-today_str = today.strftime('%Y-%m-%d')
+
 
 @ap.route('/', methods=['GET', 'POST'])
 def index():
@@ -23,6 +21,10 @@ def index():
 
 @ap.route('/api/woba_data', methods=['GET', 'POST'])
 def api_woba_data():
+
+    today = dt.datetime.now()
+    today = today - dt.timedelta(hours=4)
+    today_str = today.strftime('%Y-%m-%d')
 
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
     
@@ -42,6 +44,10 @@ def api_woba_data():
 
 @ap.route('/api/fant_data', methods=['GET', 'POST'])
 def api_fant_data():
+
+    today = dt.datetime.now()
+    today = today - dt.timedelta(hours=4)
+    today_str = today.strftime('%Y-%m-%d')
 
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
     
