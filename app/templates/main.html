@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block body %}
 
- <body ng-app='app' ng-controller="ViewController" style="margin:10px">
+ <body ng-app='app' ng-controller="ViewController" style="margin:10px" ng-click="close_dropdowns($event)">
   <div class="container-fluid">  
     <!-- Start Navigation Tabs -->
     <div class="row container-fluid">  
@@ -12,10 +12,11 @@
           <li class="nav-item">
             <a class="nav-link active" href="#fant_data" role="tab" data-toggle="tab">Woba</a>
           </li>
+        </ul>
           <div class="col-lg-3 col-lg-offset-9">
             <div>Last update: {{ "{{object.last_update_woba}}" }}</div>
           </div>
-        </ul>
+        
       </div>
     </div>
     <!-- End Navigation Tabs -->
@@ -30,10 +31,11 @@
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_fant_table">
+                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_fant_table.batter">
                 </div>      
               </div>
             </form>
+            
           </div>
           <div class="col-md-9">
             <h3>Toggle columns:</h3>
@@ -91,17 +93,57 @@
                 </td>
                 <td class="fit" ng-hide="batter_team_hide">
                   <a href="#" ng-click="sortType = 'batter_team'; sortReverse = !sortReverse">
-                    Batter Team
                     <span ng-show="sortType == 'batter_team' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'batter_team' && sortReverse" class="fa fa-caret-up"></span>
                   </a>
+                  <span>
+                      <div class="dropdown ">
+                        <button class="btn btn-primary dropdown-toggle " type="button" ng-click="dropdownClicks($event)">Batter Team
+                        <span class="caret "></span></button>
+                        <ul class="dropdown-menu">
+                          <li class="list-group-item ">
+                            <input type="checkbox" id="team_all" ng-click="checkAll($event, 'team')" checked><label class="form-check-label" for=team_all>
+                              All
+                            </label>
+                          </li>
+                          <li class="divider"></li>
+                          <li class="list-group-item" ng-repeat="row in woba_fant_data | unique:'batter_team'">
+                            <input class="team_col" type="checkbox" id={{ "{{row.batter_team}}" }} ng-click="toggleSelection(row.batter_team, 'team')" checked>
+                            <label class="form-check-label" for={{ "{{row.batter_team}}" }}>
+                              {{ "{{row.batter_team}}" }}
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </span>
                 </td>
                 <td class="fit" ng-hide="batter_pos_hide">
                   <a href="#" ng-click="sortType = 'batter_pos'; sortReverse = !sortReverse">
-                    Batter Pos
+                    
                     <span ng-show="sortType == 'batter_pos' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'batter_pos' && sortReverse" class="fa fa-caret-up"></span>
+                    
                   </a>
+                  <span>
+                      <div class="dropdown ">
+                        <button class="btn btn-primary dropdown-toggle " type="button" ng-click="dropdownClicks($event)">Batter Pos
+                        <span class="caret "></span></button>
+                        <ul class="dropdown-menu">
+                          <li class="list-group-item ">
+                            <input type="checkbox" id="pos_all" ng-click="checkAll($event, 'pos')" checked><label class="form-check-label" for=pos_all>
+                              All
+                            </label>
+                          </li>
+                          <li class="divider"></li>
+                          <li class="list-group-item" ng-repeat="row in woba_fant_data | unique:'batter_pos'">
+                            <input class="pos_col" type="checkbox" id={{ "{{row.batter_pos}}" }} ng-click="toggleSelection(row.batter_pos, 'pos')" checked>
+                            <label class="form-check-label" for={{ "{{row.batter_pos}}" }}>
+                              {{ "{{row.batter_pos}}" }}
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </span>
                 </td>
                 <td class="fit" ng-hide="game_time_hide">
                   <a href="#" ng-click="sortType = 'game_time'; sortReverse = !sortReverse">
@@ -211,7 +253,7 @@
               </tr>
             </thead>
             <tbody>  
-              <tr ng-repeat="row in woba_fant_data | orderBy:sortType:sortReverse | filter:search_fant_table">
+              <tr ng-repeat="row in woba_fant_data | custom_filter:this | team_filter:this | orderBy:sortType:sortReverse ">
                 <td class="fit" ng-hide="batter_hide">{{ "{{row.batter}}" }}</td>
                 <td class="fit" ng-hide="batter_team_hide">{{ "{{row.batter_team}}" }}</td>
                 <td class="fit" ng-hide="batter_pos_hide">{{ "{{row.batter_pos}}" }}</td>
