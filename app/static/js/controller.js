@@ -3,21 +3,21 @@
    
     var app = angular.module('app', [])
     app.controller('ViewController', function($scope, $http) {
-      $scope.load_data = function() {
+      $scope.load_data = function(date='') {
         
-        $http.get("/api/woba_data", {headers:{'Cache-Control': 'no-cache'}})
-        .then(function(response) {
+        // $http.get("/api/woba_data"+date, {headers:{'Cache-Control': 'no-cache'}})
+        // .then(function(response) {
 
-          if (response.data == 'data_not_updated'){
-            $scope.object.woba_missing_data = "Data still processing for today";
-          }else{
-            $scope.woba_data = response.data;
-            $scope.object.woba_missing_data = null;
-            $scope.last_updates();
-          };
+        //   if (response.data == 'data_not_updated'){
+        //     $scope.object.woba_missing_data = "Data still processing for today";
+        //   }else{
+        //     $scope.woba_data = response.data;
+        //     $scope.object.woba_missing_data = null;
+        //     $scope.last_updates();
+        //   };
 
-        })
-        $http.get("/api/fant_data", {headers:{'Cache-Control': 'no-cache'}})
+        // })
+        $http.get("/api/fant_data"+date, {headers:{'Cache-Control': 'no-cache'}})
         .then(function(response) {
           if (response.data == 'data_not_updated'){
             $scope.object.fant_missing_data = "Data still processing for today";
@@ -90,9 +90,17 @@
 
       };
 
-      $scope.table_filter = function(val){
-        return 
-      }
+      $scope.init_datepicker = function(){
+        $( "#date_input" ).datepicker({
+          format: "yyyy-mm-dd",
+          autoclose: true
+        }).on('changeDate', function(ev){
+           var date = $("#date_input")
+           var date_str = date.datepicker('getDate').toISOString().substring(0, 10);
+           var date_query = "?date="+date_str
+           $scope.load_data(date=date_query)
+        });
+      };
 
 
       $scope.toggleSelection = function toggleSelection(value, col) {
@@ -153,6 +161,7 @@
       
       $scope.load_data();
       $scope.last_updates();
+      $scope.init_datepicker();
 
     
     });

@@ -30,12 +30,17 @@
             <form>
               <div class="form-group">
                 <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_table">
                   <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" placeholder="Filter table" ng-model="search_fant_table.batter">
                 </div>      
               </div>
             </form>
-            
+            <div class="input-group date">
+                <input id="date_input" type="text" class="form-control">
+                <div class="input-group-addon">
+                    <span>Date</span>
+                </div>
+            </div>
           </div>
           <div class="col-md-9">
             <h3>Toggle columns:</h3>
@@ -253,7 +258,7 @@
               </tr>
             </thead>
             <tbody>  
-              <tr ng-repeat="row in woba_fant_data | custom_filter:this | team_filter:this | orderBy:sortType:sortReverse ">
+              <tr ng-repeat="row in woba_fant_data | filter: search_table | custom_filter:this | team_filter:this | orderBy:sortType:sortReverse ">
                 <td class="fit" ng-hide="batter_hide">{{ "{{row.batter}}" }}</td>
                 <td class="fit" ng-hide="batter_team_hide">{{ "{{row.batter_team}}" }}</td>
                 <td class="fit" ng-hide="batter_pos_hide">{{ "{{row.batter_pos}}" }}</td>

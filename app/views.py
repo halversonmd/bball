@@ -25,6 +25,8 @@ def api_woba_data():
     today = dt.datetime.now()
     today = today - dt.timedelta(hours=4)
     today_str = today.strftime('%Y-%m-%d')
+    if 'date' in request.args:
+        today_str = request.args.get('date')
 
     #server
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
@@ -52,6 +54,8 @@ def api_fant_data():
     today = dt.datetime.now()
     today = today - dt.timedelta(hours=4)
     today_str = today.strftime('%Y-%m-%d')
+    if 'date' in request.args:
+        today_str = request.args.get('date')
 
     #server
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
