@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+{% block body %}
+
+ <body ng-app='app' ng-controller="ViewController" style="margin:10px" ng-click="close_dropdowns($event)">
+  <div class="container-fluid">  
+   
+    <h1>Sign In</h1>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="list-group">
+        {% for message in messages %}
+        <li style="color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    
+  </div>
+</body>
+
+
+{% endblock %}

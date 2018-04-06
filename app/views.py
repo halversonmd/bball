@@ -8,12 +8,59 @@ from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from flask_triangle import Triangle
 import datetime as dt
+from flask_login import login_required, current_user, login_user, logout_user
+from app.forms import LoginForm, RegistrationForm
+from app.models import User
+from werkzeug.urls import url_parse
 
 Triangle(ap)
+
+@ap.route('/login', methods=['GET', 'POST'])
+
+def login_page():
+
+    form = LoginForm()
+    email = form.email.data
+    pw = form.password.data
+
+    if form.validate_on_submit():
+
+        user = User(email=email)
+        if user.validated(pw):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+
+            return redirect(next_page)
+        else:
+            flash('Invalid username or password')
+            return redirect(url_for('login_page'))
+    
+    return render_template("login.html", form=form)
+
+@ap.route('/register', methods=['GET', 'POST'])
+def register():
+
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data)
+        print form.password.data
+        result, msg = user.insert_pw(form.password.data)
+        if result:
+            login_user(user)
+            return redirect(url_for('index'))
+        else:
+            flash(msg)
+        return redirect(url_for('register'))
+    return render_template('register.html', title='Register', form=form)
 
 
 
 @ap.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
    
 
@@ -32,7 +79,7 @@ def api_woba_data():
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
 
     #local
-    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -48,6 +95,11 @@ def api_woba_data():
 
     return json.dumps(resp_json)
 
+@ap.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login_page'))
+
 @ap.route('/api/fant_data', methods=['GET', 'POST'])
 def api_fant_data():
 
@@ -61,7 +113,7 @@ def api_fant_data():
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
 
     #local
-    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
