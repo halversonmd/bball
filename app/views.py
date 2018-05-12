@@ -79,7 +79,7 @@ def api_woba_data():
     file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
 
     #local
-    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -113,7 +113,7 @@ def api_fant_data():
     file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
 
     #local
-    # file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
     
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -143,7 +143,7 @@ def api_fant_data():
             'total_woba': csv_df.loc[i, 'total_woba']
             })
      
-
+    
     return json.dumps(resp_json)
 
 @ap.route('/api/last_update', methods=['GET', 'POST'])

@@ -4,19 +4,6 @@
     var app = angular.module('app', [])
     app.controller('ViewController', function($scope, $http) {
       $scope.load_data = function(date='') {
-        
-        // $http.get("/api/woba_data"+date, {headers:{'Cache-Control': 'no-cache'}})
-        // .then(function(response) {
-
-        //   if (response.data == 'data_not_updated'){
-        //     $scope.object.woba_missing_data = "Data still processing for today";
-        //   }else{
-        //     $scope.woba_data = response.data;
-        //     $scope.object.woba_missing_data = null;
-        //     $scope.last_updates();
-        //   };
-
-        // })
         $http.get("/api/fant_data"+date, {headers:{'Cache-Control': 'no-cache'}})
         .then(function(response) {
           if (response.data == 'data_not_updated'){
@@ -42,7 +29,6 @@
       };
 
       $scope.checkAll = function(e, col) {
-        console.log(col)
         if (col === 'pos'){
           var dropdown = $('.pos_col')
           var all_checkbox = $('#pos_all')
@@ -52,12 +38,10 @@
           var all_checkbox = $('#team_all')
           var filt_arr = $scope.filtered_team_data
         }
-        // console.log(all_checkbox[0].checked)
         if (all_checkbox[0].checked){
           angular.forEach(dropdown, function(item){
             var id = $(item).attr('id')
             var idx = filt_arr.indexOf(id);
-          // Is currently selected
           if (idx === -1) {
             filt_arr.push(id);
           }
@@ -67,7 +51,6 @@
           angular.forEach(dropdown, function(item){
             var id = $(item).attr('id')
             var idx = filt_arr.indexOf(id);
-            // Is currently selected
             if (idx > -1) {
               filt_arr.splice(idx, 1);
             }
@@ -135,24 +118,6 @@
       
       // On load
 
-      $scope.batter_pos_hide = false
-      $scope.batter_team_hide = false
-      $scope.game_time_hide = false
-      $scope.batter_hide = false
-      $scope.lineup_confirmed_hide = false
-      $scope.b_tot_woba_hide = true
-      $scope.b_hand_hide = false
-      $scope.batter_venue_hide = false
-      $scope.batter_venue_woba_hide = true
-      $scope.batter_salary_hide = false
-      $scope.bwaph_hide = false
-      $scope.p_tot_woba_hide = true
-      $scope.pitcher_hide = false
-      $scope.p_hand_hide = false
-      $scope.pwabh_hide = false
-      $scope.pitcher_salary_hide = false
-      $scope.salary_over_k_hide = false
-      $scope.total_woba_hide = false
       $scope.object = {fant_missing_data: null, woba_fant_data: null};
       $scope.sortType = 'total_woba';
       $scope.sortProbType = 'prob_fant_abov_avg';
@@ -166,18 +131,17 @@
     
     });
     app.filter('custom_filter', function($filter) {
-       // we will return a function which will take in a collection
-       // and a keyname
+
        return function(input, scope) {
-        
+
         var output = [];
-        
+
         angular.forEach(input, function(item) {
-            // we check to see whether our object exists
+
             var key = item['batter_pos'];
-            // if it's not already part of our keys array
+
             if(scope.filtered_data.indexOf(key) > -1) {
-                // push this item to our final output array
+
                 output.push(item);
               }
           });
@@ -185,18 +149,18 @@
         }
     });
     app.filter('team_filter', function($filter) {
-       // we will return a function which will take in a collection
-       // and a keyname
+
+
        return function(input, scope) {
-        
+
         var output = [];
-        
+
         angular.forEach(input, function(item) {
-            // we check to see whether our object exists
+
             var key = item['batter_team'];
-            // if it's not already part of our keys array
+
             if(scope.filtered_team_data.indexOf(key) > -1) {
-                // push this item to our final output array
+
                 output.push(item);
               }
           });
@@ -204,34 +168,25 @@
         }
     });
     app.filter('unique', function() {
-       // we will return a function which will take in a collection
-       // and a keyname
+
        return function(collection, keyname) {
-          // we define our output and keys array;
+
           var output = [], 
               keys = [];
-          
-          // we utilize angular's foreach function
-          // this takes in our original collection and an iterator function
+
           angular.forEach(collection, function(item) {
-              // we check to see whether our object exists
+
               var key = item[keyname];
-              // if it's not already part of our keys array
+
               if(keys.indexOf(key) === -1) {
-                  // add it to our keys array
+
                   keys.push(key); 
-                  // push this item to our final output array
+
                   output.push(item);
               }
           });
-          // return our array which should be devoid of
-          // any duplicates
           return output;
        };
     });
 
-
-
-    
 })();
-    
