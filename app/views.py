@@ -75,7 +75,7 @@ def api_woba_data():
     if 'date' in request.args:
         today_str = request.args.get('date')
 
-    file_path = '{data_path}{today_str}.csv'.format(data_path=ap.config["DATA_PATH"], today_str=today_str)
+    file_path = '{data_path}matchup_data_{today_str}.csv'.format(data_path=ap.config["DATA_PATH"], today_str=today_str)
 
     if not os.path.isfile(file_path):
         return "data_not_updated"
@@ -105,12 +105,9 @@ def api_fant_data():
     if 'date' in request.args:
         today_str = request.args.get('date')
 
-    #server
-    file_path = '/home/ec2-user/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
+    file_path = '{data_path}WOBA-data-for-{today_str}.csv'.format(data_path=ap.config["DATA_PATH"], today_str=today_str)
 
-    #local
-    file_path = '/Users/mhalverson/Desktop/baseball/data_files/WOBA-data-for-{}.csv'.format(today_str)
-    
+
     if not os.path.isfile(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)
@@ -145,12 +142,10 @@ def api_fant_data():
 @ap.route('/api/last_update', methods=['GET', 'POST'])
 def last_update():
 
-
-    
-    with open('/home/ec2-user/baseball/data_files/last_updated_prob.txt', 'r') as f:
+    with open('{data_path}last_updated_prob.txt'.format(data_path=ap.config["DATA_PATH"]), 'r') as f:
         last_update_prob = f.read()
 
-    with open('/home/ec2-user/baseball/data_files/last_updated_woba.txt', 'r') as f:
+    with open('{data_path}last_updated_woba.txt'.format(data_path=ap.config["DATA_PATH"]), 'r') as f:
         last_update_woba = f.read()
 
     last_update_prob = dt.datetime.strptime(last_update_prob, '%Y-%m-%d %H:%M')
