@@ -75,12 +75,8 @@ def api_woba_data():
     if 'date' in request.args:
         today_str = request.args.get('date')
 
-    #server
-    file_path = '/home/ec2-user/baseball/data_files/matchup_data_{}.csv'.format(today_str)
+    file_path = '{data_path}{today_str}.csv'.format(data_path=ap.config["DATA_PATH"], today_str=today_str)
 
-    #local
-    file_path = '/Users/mhalverson/Desktop/baseball/data_files/matchup_data_{}.csv'.format(today_str)
-    
     if not os.path.isfile(file_path):
         return "data_not_updated"
     csv_df = pd.read_csv(file_path)

@@ -14,6 +14,7 @@ with open(filename) as f:
     conf = json.loads(c)
 app.config["SQLALCHEMY_DATABASE_URI"] = conf["SQLALCHEMY_DATABASE_URI"]
 app.config["SECRET_KEY"] = conf["SECRET_KEY"]
+app.config["DATA_PATH"] = conf["DATA_PATH"]
 app.config["WTF_CSRF_ENABLED"] = True
 
 from app import views
